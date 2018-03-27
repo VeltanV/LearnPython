@@ -1,5 +1,4 @@
-from ps4a import *
-import time
+from pset4.ps4a import *
 
 
 #
@@ -137,11 +136,13 @@ def playGame(wordList):
     while (gameOn):
         userChoices = input("Enter n to deal a new hand, r to replay the last hand, or e to end game:")
         if (userChoices is "n"):
-            hand = dealHand(HAND_SIZE)
-            lastGame = [hand, HAND_SIZE]
+
+            hand = dealHand(HAND_SIZE)                      #getting the hand
+            lastGame = [hand, HAND_SIZE]                    #setting the repeat variable
+
+
             while (playerType):
                 userChoices = input("Enter u to have yourself play, c to have the computer play:")
-
                 if (userChoices is "u"):
                     playHand(hand, wordList, HAND_SIZE)
                     break
@@ -149,7 +150,11 @@ def playGame(wordList):
                 elif (userChoices is "c"):
                     compPlayHand(hand,wordList,HAND_SIZE)
                     break
-        elif(userChoices is "r" and len(lastGame) is not 0):
+                else:
+                    print("Invalid command.")
+
+        elif(userChoices is "r" and len(lastGame) is not 0):                    #repeat last game loop basically the same as new game but with lastgame variables
+
             while(playerType):
                 userChoices = input("Enter u to have yourself play, c to have the computer play:")
 
@@ -159,9 +164,16 @@ def playGame(wordList):
                 elif(userChoices is "c"):
                     compPlayHand(lastGame[0],wordList,lastGame[1])
                     break
+                else:
+                    print("Invalid command.")
+
+
         elif(userChoices is "r" and len(lastGame) is  0):
             print("You have not played a hand yet. Please play a new hand first!")
-
+        elif(userChoices is "e"):
+            break
+        else:
+            print("Invalid command.")
 if __name__ == '__main__':
     wordList = loadWords()
     playGame(wordList)
