@@ -138,17 +138,29 @@ def playGame(wordList):
         userChoices = input("Enter n to deal a new hand, r to replay the last hand, or e to end game:")
         if (userChoices is "n"):
             hand = dealHand(HAND_SIZE)
+            lastGame = [hand, HAND_SIZE]
             while (playerType):
                 userChoices = input("Enter u to have yourself play, c to have the computer play:")
 
                 if (userChoices is "u"):
-
+                    playHand(hand, wordList, HAND_SIZE)
                     break
 
                 elif (userChoices is "c"):
-
+                    compPlayHand(hand,wordList,HAND_SIZE)
                     break
+        elif(userChoices is "r" and len(lastGame) is not 0):
+            while(playerType):
+                userChoices = input("Enter u to have yourself play, c to have the computer play:")
 
+                if(userChoices is "u"):
+                    playHand(lastGame[0],wordList,lastGame[1])
+                    break
+                elif(userChoices is "c"):
+                    compPlayHand(lastGame[0],wordList,lastGame[1])
+                    break
+        elif(userChoices is "r" and len(lastGame) is  0):
+            print("You have not played a hand yet. Please play a new hand first!")
 
 if __name__ == '__main__':
     wordList = loadWords()
