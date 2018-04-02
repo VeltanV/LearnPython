@@ -1,3 +1,33 @@
-newdict = {'a': 2, 'z': 2, 'm': 1, 's': 1, 'p': 1}
+def genPrimes():
+    primes = []
+    testNumber = 1
+    isPrimal = True
+    count = 0
+    while True:
+        testNumber += 1
+        if(len(primes) == 0):
+            primes.append(testNumber)
+            yield testNumber
+        else:
+            count = 0
+            for primal in primes:
 
-print("a" in newdict)
+                if((testNumber % primal) != 0):
+                    count += 1
+                    pass
+                else:
+                    break
+                if(count == len(primes)):
+                    primes.append(testNumber)
+                    yield testNumber
+
+
+
+num = genPrimes()
+print(num.__next__())
+print(num.__next__())
+print(num.__next__())
+print(num.__next__())
+print(num.__next__())
+
+
