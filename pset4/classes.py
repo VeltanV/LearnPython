@@ -26,11 +26,11 @@ class Hand(object):
         # Build the hand
         numVowels = self.HAND_SIZE // 3
 
-        for i in range(numVowels):
+        for _ in range(numVowels):
             x = self.VOWELS[random.randrange(0, len(self.VOWELS))]
             self.hand[x] = self.hand.get(x, 0) + 1
 
-        for i in range(numVowels, self.HAND_SIZE):
+        for _ in range(numVowels, self.HAND_SIZE):
             x = self.CONSONANTS[random.randrange(0, len(self.CONSONANTS))]
             self.hand[x] = self.hand.get(x, 0) + 1
 
@@ -55,10 +55,7 @@ class Hand(object):
         '''
         Calculate the length of the hand.
         '''
-        ans = 0
-        for k in self.hand:
-            ans += self.hand[k]
-        return ans
+        return sum(self.hand[k] for k in self.hand)
 
     def __str__(self):
         '''
@@ -67,7 +64,7 @@ class Hand(object):
         output = ''
         hand_keys = sorted(self.hand.keys())
         for letter in hand_keys:
-            for j in range(self.hand[letter]):
+            for _ in range(self.hand[letter]):
                 output += letter
         return output
 
