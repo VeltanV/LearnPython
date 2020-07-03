@@ -168,7 +168,7 @@ def playGame(wordList):
                     print("Invalid command.")
 
 
-        elif(userChoices is "r" and len(lastGame) is  0):
+        elif userChoices is "r":
             print("You have not played a hand yet. Please play a new hand first!")
         elif(userChoices is "e"):
             break

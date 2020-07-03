@@ -5,21 +5,21 @@ def genPrimes():
     count = 0
     while True:
         testNumber += 1
-        if(len(primes) == 0):
-            primes.append(testNumber)
-            yield testNumber
-        else:
+        if primes:
             count = 0
             for primal in primes:
 
-                if((testNumber % primal) != 0):
-                    count += 1
-                    pass
-                else:
+                if testNumber % primal == 0:
                     break
+                else:
+                    count += 1
                 if(count == len(primes)):
                     primes.append(testNumber)
                     yield testNumber
+
+        else:
+            primes.append(testNumber)
+            yield testNumber
 
 
 

@@ -102,7 +102,7 @@ def displayHand(hand):
     hand: dictionary (string -> int)
     """
     for letter in hand.keys():
-        for j in range(hand[letter]):
+        for _ in range(hand[letter]):
             print(letter, end=" ")  # print all on the same line
     print()  # print an empty line
 
@@ -125,11 +125,11 @@ def dealHand(n):
     hand = {}
     numVowels = n // 3
 
-    for i in range(numVowels):
+    for _ in range(numVowels):
         x = VOWELS[random.randrange(0, len(VOWELS))]
         hand[x] = hand.get(x, 0) + 1
 
-    for i in range(numVowels, n):
+    for _ in range(numVowels, n):
         x = CONSONANTS[random.randrange(0, len(CONSONANTS))]
         hand[x] = hand.get(x, 0) + 1
 
@@ -300,8 +300,8 @@ def playGame(wordList):
             playHand(hand, wordList, HAND_SIZE)
             lastGame = [hand, HAND_SIZE]
 
-        elif (userChoices == "r"):
-            if (len(lastGame) == 0):
+        elif userChoices == "r":
+            if not lastGame:
                 print("You have not played a hand yet. Please play a new hand first!")
                 print()
             else:

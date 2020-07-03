@@ -114,16 +114,12 @@ class Message(object):
             allDict[number + 1] = allLetters[number]
 
         for key in allDict:
-            if (key < 27):
-                if (key + shift > 26):
-                    shiftedDict[allDict[key]] = allDict[(key + shift) % 26]
-                else:
-                    shiftedDict[allDict[key]] = allDict[key + shift]
-            elif (key + shift > 52):
-                shiftedDict[allDict[key]] = allDict[26 + (key + shift) % 26]
+            if (key < 27) and (key + shift > 26):
+                shiftedDict[allDict[key]] = allDict[(key + shift) % 26]
+            elif (key < 27) or key + shift <= 52:
+                shiftedDict[allDict[key]] = allDict[key + shift]
             else:
-                shiftedDict[allDict[key]] = allDict[(key + shift)]
-
+                shiftedDict[allDict[key]] = allDict[26 + (key + shift) % 26]
         return shiftedDict
 
     def apply_shift(self, shift):
@@ -142,10 +138,7 @@ class Message(object):
         new_message = ""
 
         for letter in self.message_text:
-            if letter in shiftedDict:
-                new_message += shiftedDict[letter]
-            else:
-                new_message += letter
+            new_message += shiftedDict[letter] if letter in shiftedDict else letter
         return new_message
 
 
@@ -262,10 +255,10 @@ class CiphertextMessage(Message):
 
                 tempWord[x] =self.apply_shift(x)
 
-        for keys in tempWord.keys():
-            for subletter in tempWord[keys].split():
-                    if(is_word(loadedWords,subletter)):
-                        count +=1
+        for keys, value in tempWord.items():
+            for subletter in value.split():
+                if(is_word(loadedWords,subletter)):
+                    count +=1
             if(count > bestNow):
                     bestNow= count
                     bestString=(keys,tempWord[keys])
